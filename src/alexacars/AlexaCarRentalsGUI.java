@@ -121,15 +121,19 @@ public class AlexaCarRentalsGUI extends JFrame implements ActionListener {
 			return;
 		}
 
-		
+		customerArray[currentCustomer] = c;
 
 		displayHeading();
 
 		// TODO -- Display customer name, number of days and distance travelled in km(s)
 		// and the total charge to the text area (as per the specification)
 
+		displayTextArea.append(c.toString());
+
 		// TODO -- Clear input fields and return focus to the customer name field and
 		// increment current customer variable
+
+		clearFields();
 
 		// TODO -- complete error message code (put this code at the beginning of the
 		// method)
@@ -149,6 +153,24 @@ public class AlexaCarRentalsGUI extends JFrame implements ActionListener {
 
 		// TODO -- display all of the customer details entered so far
 
+		displayHeading();
+
+		float chargesCollected = 0;
+		float sumCarsRented = 0;
+		float carsTotal = 0;
+
+		for (Customer c : customerArray) {
+			if (c != null) {
+				displayTextArea.append(c.toString());
+
+				chargesCollected += 1;
+				sumCarsRented += 1;
+				carsTotal += 1;
+			}
+		}
+
+		displayTextArea.append(String.format("Average cars rented: %2.2f, Total charges: %2.2f\n", sumCarsRented / carsTotal, chargesCollected));
+
 		// TODO -- display average days cars were rented and total charges collected and
 		// return focus to the customer name field
 
@@ -158,15 +180,23 @@ public class AlexaCarRentalsGUI extends JFrame implements ActionListener {
 
 	private void search() {
 		// TODO -- read search key (customer name) from input dialog
+		String searchTerm = (String) JOptionPane.showInputDialog(this, "Enter name", "Uhhh", JOptionPane.PLAIN_MESSAGE, null, null, "Steve");
 
 		// TODO -- iterate through array to search for the search key
+		for (Customer c : customerArray) {
+			if (c != null && c.getName().contains(searchTerm)) {
+				return;
+			}
+		}
+
+		JOptionPane.showMessageDialog(this, "Didnt find that name", "Error", JOptionPane.ERROR_MESSAGE);
 
 		// TODO -- display the entry if it exists or an error message if it doesn't
 
 		// TODO -- complete error message code (put at the beginning of the method)
 
 	}
-
+	
 	private void exit() {
 
 		// TODO -- display exit message here
@@ -189,5 +219,4 @@ public class AlexaCarRentalsGUI extends JFrame implements ActionListener {
 		f.setVisible(true); // Make the application visible
 		f.setResizable(false); // Make the window not resizable
 	} // main
-
 }

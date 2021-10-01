@@ -43,4 +43,8 @@ public class Customer {
         this.daysTravelled = daysTravelled;
         this.distanceTravelled = distanceTravelled;
     }
+
+    public String toString() {
+        return String.format("Name: %s, daysTravelled: %d, distanceTravelled: %2.2f\n", this.name, this.daysTravelled, this.distanceTravelled);
+    }
 }
